@@ -2,7 +2,7 @@ const {
   getAuthorization,
   getAuthorizationCallback,
 } = require("../controllers/login");
-const { verifyApiAccess } = require("../middlewares/verifyAPIaccess");
+const { verifyApiAccess } = require("../middlewares/verifyApiAccess");
 const router = require("express").Router();
 
 // router endpoints
