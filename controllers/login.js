@@ -2,7 +2,7 @@ const axios = require("axios").default;
 const {
   SPOTIFY_CLIENT_SECRET,
   SPOTIFY_CLIENT_ID,
-} = require("../configs/ENVIRONMENTS.JS");
+} = require("../configs/environments");
 
 exports.getAuthorization = async (_req, res) => {
   try {
