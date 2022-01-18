@@ -2,6 +2,7 @@ const axios = require("axios").default;
 const {
   SPOTIFY_CLIENT_SECRET,
   SPOTIFY_CLIENT_ID,
+  BACKEND_URL,
 } = require("../configs/environments");
 
 exports.getAuthorization = async (_req, res) => {
@@ -9,8 +10,7 @@ exports.getAuthorization = async (_req, res) => {
     const scope =
       "user-read-playback-position user-top-read user-read-recently-played user-read-currently-playing";
 
-    const redirect_uri =
-      "http://localhost:8000/api/login/getAuthorizationCallback";
+    const redirect_uri = BACKEND_URL + "/api/login/getAuthorizationCallback";
 
     const query = {
       client_id: SPOTIFY_CLIENT_ID,
@@ -24,7 +24,9 @@ exports.getAuthorization = async (_req, res) => {
 
     const url = `https://accounts.spotify.com/authorize?${queryString}`;
 
-    res.redirect(url);
+    res.status(200).json({
+      url,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
@@ -46,7 +48,7 @@ exports.getAuthorizationCallback = async (req, res) => {
     formData.append("code", code);
     formData.append(
       "redirect_uri",
-      "http://localhost:8000/api/login/getAuthorizationCallback"
+      BACKEND_URL + "/api/login/getAuthorizationCallback"
     );
 
     const { data } = await axios.post(

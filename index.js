@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { PRODUCTION_ENV } = require("./configs/environments");
 
 /**
  * Express configuration
@@ -11,6 +12,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+if (!PRODUCTION_ENV) {
+  app.use(require("morgan")("dev"));
+}
 
 // endpoints
 app.get("/", (_req, res) => {
