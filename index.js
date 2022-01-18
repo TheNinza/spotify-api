@@ -22,6 +22,8 @@ app.use((req, res, next) => {
       } else {
         next();
       }
+    } else {
+      throw new Error("Invalid API key");
     }
   } catch (error) {
     res.status(401).json({
